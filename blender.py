@@ -72,6 +72,9 @@ def get_map(positions: Tuple[int, int]) -> numpy.array:
         h_x = height[step[1]]
         geo_map[h_x][w_x] += 1
 
+    del generated_positions[:]
+    row.clear()
+    height.clear()
     return numpy.array(geo_map)
 
 
