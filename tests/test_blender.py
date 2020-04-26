@@ -1,26 +1,26 @@
-import os
+# TODO import os
 import pytest
-from numpy import array
 from ..blender import *
 
 
 @pytest.fixture
 def path():
-    return ''
+    return 'image'
 
 
-def test_get_image(path, np_array):
-    assert isinstance(path, str)
-    assert path.endswith('.png')
-    assert os.path.exists(path)
-
-    assert isinstance(np_array, array)
+@pytest.fixture
+def geo_map():
+    return numpy.array([[0, 0]])  # FIXME
 
 
-def test_get_direction(directions_list, probability):
-    assert isinstance(directions_list, list)
-    assert isinstance(directions_list.pop(), str)
+def test_get_image(path, geo_map):
+    pass
+    # TODO get_image(path, geo_map)
+    # TODO assert os.path.exists(path)
+
+
+def test_get_direction(probability):
     assert isinstance(probability, list)
     assert isinstance(probability.pop(), float)
 
-    assert isinstance(get_direction(directions_list, probability), tuple)
+    assert isinstance(get_direction(probability), tuple)
