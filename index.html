@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <script src="lodash.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Random Walk: Create unique art forever.</title>
+    <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+    <link rel="shortcut icon" href="images/logo.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container textcontent">
+        <section>
+            <h1><img src="images/logo.png" height="50" width="50">Random Walk: Generated Art</h1>
+            <blockquote>
+                describes a path that consists of a succession of random steps on some mathematical space such as the integers...</p>
+                <cite>Random Walk</cite> <a href="https://en.wikipedia.org/wiki/Random_walk">on Wikipedia</a></cite>
+            </blockquote>
+            <div class="alert alert-primary" role="alert">
+                Define your parameters and press <em>Generate</em> to create your unique art piece.
+            </div>
+        </section>
+        <div class="row">
+            <div class="col bright">
+                <h5>Controls</h5>
+                <button title='draw from center' id='generate_art'><i class="material-icons">gesture</i></button>
+                <button title='draw from point' id='generate_from_coords'><i class="material-icons">flare</i></button>
+                <button title='erase' id='erase_canvas'><i class="material-icons">refresh</i></button>
+                <button title='download' id='save_image'><i class="material-icons">cloud_download</i></button>
+                <!--thickness 20 draw steps 1000-->
+            </div>
+            <div class="col bright">
+                <h5>Parameters</h5>
+                <form>
+                    <fieldset>
+                        <div class="alert alert-danger" role="alert">
+                            More than 100,000 steps may result in performance issues.
+                        </div>
+                        <label>Draw Steps</label>
+                        <input type='number' min='1' max='1000000' id='draw_steps' value='10000'></input>
+
+                    </fieldset>
+                    <fieldset>
+                        <label>Line color</label>
+                        <input id='line_color' type="color" value="#000000">
+                    </fieldset>
+                    <fieldset>
+                        <label>Thickness</label>
+                        <input id='line_thickness' value='1' type="number" min='1' max='200' step="20"></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>X</label>
+                        <input value="300" type="number" min="0" max="5000" id="next_x"></input>
+                        <label>Y</label>
+                        <input value="150" type="number" min="0" max="5000" id="next_y"></input>
+                        <label>Framerate</label>
+                        <input value="1000" type="number" min="1" max="1000" id="frame_rate"></input>
+                    </fieldset>
+                    <fieldset>
+                        <h5>Brushes</h5>
+                        <button id="loopy_toggle" type="button">Loopy ON/OFF</button>
+                    </fieldset>
+
+                    <h3>Canvas Settings</h3>
+                    <fieldset>
+                        <label>Image size</label>
+                        <select id="set_resolution" default="VGA">
+                            <option value="8k">8K (7680 x 4320)</option>
+                            <option value="4k">4K (4096 x 2160)</option>
+                            <option value="UHD">UHD (3,840 x 2,160)</option>
+                            <option value="FullHD">FullHD (1920 x 1080)</option>
+                            <option selected="selected" value="VGA">VGA (640 x 480)</option>
+                            <option value="Atari2600">Atari 2600 (160 x 192)</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label>Background color</label>
+                        <input id='background_color' type="color" value="#FFFFFF">
+                        <fieldset>
+                            <label>Opacity</label>
+                            <input id="transparency" type='checkbox'>0%</input>
+                        </fieldset>
+                    </fieldset>
+                    <button title='new canvas' type="button" id="new_canvas"><i class="material-icons">add</i></button>
+                </form>
+
+            </div>
+            <div class="col">
+                <canvas id="mainCanvas" height="300" width="750">Canvas not supported by your browser.</canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Data</h3>
+                <label>Last shape draw time in milliseconds</label>
+                <input type="float" id="draw_time" value="0" readonly></input>
+                <section>
+                    <h3>Related content</h3>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=b8LMlCPRjPE">The Long Run Behavior of Random Walks - Omer Tamuz</a></li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="page-footer font-small orange pt-1">
+            <div class="container-fluid text-center text-md-left">©2020 Marcin R. Kraszewski <a href="http://www.soai.world">SOAI.world</a></div>
+        </footer>
+    </div>
+
+    <!--CANVAS SCRIPT-->
+    <!--<script src="app.js"></script>-->
+    <script src="interface.js"></script>
+    <!--BOOTSTRAP SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
